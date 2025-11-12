@@ -74,16 +74,18 @@ WSGI_APPLICATION = 'my_django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import os
+import dj_database_url  # install with `pip install dj-database-url`
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vending_db',
-        'USER': 'Admin',          # matches role you just created
-        'PASSWORD': 'Admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('postgresql://vending_db_rp0h_user:qvDnsSmyRnzdUb7xE7vEYKtuEdaUjwEA@dpg-d4aeif8gjchc73flfgqg-a/vending_db_rp0h')  # Render sets this automatically
+    )
 }
+
+# Optional: for Render deployment
+ALLOWED_HOSTS = ['your-app.onrender.com']
+DEBUG = False
 
 
 
